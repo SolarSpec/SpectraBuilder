@@ -26,6 +26,7 @@ for FileIndex = 1:1:size(FolderContent,1)
         else
             Wavelength = extractBefore(FolderContent(FileIndex).name,'nm');
             Position = extractAfter(FolderContent(FileIndex).name,'nm');
+            %Position = extractBetween(FolderContent(FileIndex).name, 'X', '.');
             tamOn = 1;
             
             display(['Now running: ',[FolderPath, '\', FolderContent(FileIndex).name]])

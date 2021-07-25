@@ -41,8 +41,13 @@ else
     Time = transpose(TDMScontent.data{1,TimeDataIndex});
 end 
 
+LogABS = real(log10(Abs(Time>0)));
+LogTime = log10(Time(>0));
+
 Time = array2table(Time);
+
 LinData = [Time,LinData];
+
 LinArray = table2array(LinData);
 
 [LogTimeArray,LogAbsArray] = lin2log_TAS(LinArray(:,1),LinArray(:,2:end));
