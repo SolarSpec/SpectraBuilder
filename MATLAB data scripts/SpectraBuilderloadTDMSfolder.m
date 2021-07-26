@@ -11,7 +11,7 @@ for FileIndex = 1:1:size(FolderContent,1)
     
     if endsWith(FolderContent(FileIndex).name, '.tdms') == 1
         if endsWith(FolderContent(FileIndex).name, 'nm.tdms') == 1
-            
+            tamOn = 0;
             Wavelength = extractBefore(FolderContent(FileIndex).name,'nm.tdms');
             
             display(['Now running: ',[FolderPath, '\', FolderContent(FileIndex).name]])
@@ -32,10 +32,11 @@ for FileIndex = 1:1:size(FolderContent,1)
             LinData = addvars(LinData,Abs,'NewVariableNames',matlab.lang.makeValidName(Wavelength));
             BackgroundLvl = addvars(BackgroundLvl, Bkg, 'NewVariableNames', matlab.lang.makeValidName(Wavelength));
         else
+            tamOn = 1;
             Wavelength = extractBefore(FolderContent(FileIndex).name,'nm');
             Position = extractAfter(FolderContent(FileIndex).name,'nm');
             %Position = extractBetween(FolderContent(FileIndex).name, 'X', '.');
-            tamOn = 1;
+            
             
             display(['Now running: ',[FolderPath, '\', FolderContent(FileIndex).name]])
             TDMScontent = TDMS_readTDMSFile([FolderPath, '\', FolderContent(FileIndex).name]);
