@@ -1,4 +1,5 @@
-global tamOn Position;
+% Do I need this?
+global tamOn Position Time LogTimeArray;
 FolderPath = uigetdir;
 
 FolderContent = dir(FolderPath);
@@ -35,8 +36,6 @@ for FileIndex = 1:1:size(FolderContent,1)
             tamOn = 1;
             Wavelength = extractBefore(FolderContent(FileIndex).name,'nm');
             Position = extractAfter(FolderContent(FileIndex).name,'nm');
-            %Position = extractBetween(FolderContent(FileIndex).name, 'X', '.');
-            
             
             display(['Now running: ',[FolderPath, '\', FolderContent(FileIndex).name]])
             TDMScontent = TDMS_readTDMSFile([FolderPath, '\', FolderContent(FileIndex).name]);
