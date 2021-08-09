@@ -1,5 +1,4 @@
-% Do I need this?
-global tamOn Position Time LogTimeArray;
+global tamOn Position Time LogTimeArray FolderPath;
 FolderPath = uigetdir;
 
 FolderContent = dir(FolderPath);
