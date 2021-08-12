@@ -1,4 +1,3 @@
-global tamOn Position Time LogTimeArray FolderPath;
 FolderPath = uigetdir;
 
 FolderContent = dir(FolderPath);
