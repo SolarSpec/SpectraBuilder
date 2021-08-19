@@ -1,7 +1,3 @@
-FolderPath = uigetdir;
-
-FolderContent = dir(FolderPath);
-
 LinData = table();
 LogData = table();
 BackgroundLvl = table();
