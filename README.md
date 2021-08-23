@@ -1,2 +1,2 @@
 # SpectraBuilder
-Importing and processing of TAS data
+Importing and processing of TAS and TAM data
