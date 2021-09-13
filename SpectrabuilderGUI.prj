@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="845089986" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="675063413" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email />
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tpc1d4c7a1_afa1_4ad0_be4f_1a9890d2137f.png</param.screenshot>
+    <param.screenshot />
     <param.version>1.0</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -30,6 +30,7 @@
       <param.icon />
       <param.icons />
       <param.description />
+      <param.screenshot />
       <param.version />
       <param.platforms />
       <param.output />

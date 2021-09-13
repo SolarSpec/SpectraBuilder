@@ -49,9 +49,6 @@ for FileIndex = 1:1:size(FolderContent,1)
             LinData = addvars(LinData,Abs,'NewVariableNames',matlab.lang.makeValidName(Position));
             BackgroundLvl = addvars(BackgroundLvl, Bkg, 'NewVariableNames', matlab.lang.makeValidName(Position));
         end
-    else
-        ...
-            
     end
 end
 
