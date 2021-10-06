@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3358753440" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="511287305" file="C:\Users\hvidi\Desktop\Main\SpectraBuilder-main\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\Main\SpectraBuilder-main" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email />
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\Desktop\Screenshot.png</param.screenshot>
+    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tpa29cae88_84b8_4c8c_8978_fe79a934266b.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -58,7 +58,7 @@
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="C:\Users\hvidi\Desktop" name="SpectraBuilder" optional="false">C:\Users\hvidi\Desktop\SpectraBuilder</file>
+      <file location="C:\Users\hvidi\Desktop\Main" name="SpectraBuilder-main" optional="false">C:\Users\hvidi\Desktop\Main\SpectraBuilder-main</file>
     </build-deliverables>
     <workflow />
     <matlab>
