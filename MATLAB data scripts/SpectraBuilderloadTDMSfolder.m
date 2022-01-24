@@ -14,6 +14,9 @@ for FileIndex = 1:1:size(FolderContent,1)
             
             CH0GroupIndex = find(strcmp(TDMScontent.groupNames,'CH0'));
             AbsChanIndex = find(strcmp(TDMScontent.chanNames{1,CH0GroupIndex},'final A-B'));
+            if isempty(AbsChanIndex) == 1
+                AbsChanIndex = find(strcmp(TDMScontent.chanNames{1,CH0GroupIndex},'A-Test  dOD'));
+            end
             AbsDataIndex = TDMScontent.chanIndices{1,CH0GroupIndex}(AbsChanIndex);
             
             Abs = transpose(TDMScontent.data{1,AbsDataIndex});
