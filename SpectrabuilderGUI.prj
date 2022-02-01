@@ -1,15 +1,15 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="4277526350" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3070368234" file="C:\Users\Haris\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\Haris\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
-    <param.email />
+    <param.email>vidihari@student.ubc.ca</param.email>
     <param.company>SolarSpec</param.company>
     <param.icon />
     <param.icons />
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>${PROJECT_ROOT}\Main.png</param.screenshot>
-    <param.version>3.0</param.version>
+    <param.screenshot>C:\Users\Haris\AppData\Local\Temp\tp4024b36e_d81c_4be7_935d_4c8d698ae716.png</param.screenshot>
+    <param.version>3.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
       <item>Curve Fitting Toolbox</item>
@@ -26,7 +26,6 @@
     <param.output>${PROJECT_ROOT}</param.output>
     <param.guid>0e7da8b5-24ea-4533-b415-6577cb0034bc</param.guid>
     <unset>
-      <param.email />
       <param.icon />
       <param.icons />
       <param.description />
@@ -37,6 +36,7 @@
       <file>${PROJECT_ROOT}\SolarSpecGUI.mlapp</file>
     </fileset.main>
     <fileset.depfun>
+      <file>${PROJECT_ROOT}\images\logo.png</file>
       <file>${PROJECT_ROOT}\LogLogApp.mlapp</file>
       <file>${PROJECT_ROOT}\MATLAB data scripts\save_to_base.m</file>
       <file>${PROJECT_ROOT}\MATLAB data scripts\SpectraBuilder_lin2log_TAS.m</file>
@@ -57,49 +57,12 @@
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="C:\Users\hvidi\Desktop" name="SpectraBuilder" optional="false">C:\Users\hvidi\Desktop\SpectraBuilder</file>
+      <file location="C:\Users\Haris\Desktop" name="SpectraBuilder" optional="false">C:\Users\Haris\Desktop\SpectraBuilder</file>
     </build-deliverables>
     <workflow />
     <matlab>
       <root>C:\Program Files\MATLAB\R2021b</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-        <toolbox name="embeddedcoder" />
-        <toolbox name="gpucoder" />
-        <toolbox name="fixedpoint" />
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="neuralnetwork" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
-      <toolbox>
-        <embeddedcoder>
-          <enabled>true</enabled>
-        </embeddedcoder>
-      </toolbox>
-      <toolbox>
-        <gpucoder>
-          <enabled>true</enabled>
-        </gpucoder>
-      </toolbox>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
-      <toolbox>
-        <matlabhdlcoder>
-          <enabled>true</enabled>
-        </matlabhdlcoder>
-      </toolbox>
-      <toolbox>
-        <neuralnetwork>
-          <enabled>true</enabled>
-        </neuralnetwork>
-      </toolbox>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>false</unix>
