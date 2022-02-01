@@ -113,7 +113,7 @@ Make sure MATLAB is installed. It is available for download in the Software Dist
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-This app is currently lacking in any examples to be shown as it is still being created
+This app is currently lacking in any examples. Coming soon...
 
 _For more information on any of the internal functions, please refer to the [MATLAB Documentation](https://www.mathworks.com/help/matlab/)_
 
@@ -159,7 +159,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the BSD 3-Clause License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
