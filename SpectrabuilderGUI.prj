@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3181742437" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2887299362" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email>vidihari@student.ubc.ca</param.email>
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp3d5e28c3_6de0_407b_9627_990848fc8ebb.png</param.screenshot>
+    <param.screenshot>${PROJECT_ROOT}\images\Screenshot.png</param.screenshot>
     <param.version>3.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -36,8 +36,8 @@
       <file>${PROJECT_ROOT}\SolarSpecGUI.mlapp</file>
     </fileset.main>
     <fileset.depfun>
+      <file>C:\Users\hvidi\Desktop\DLSmultiAverage\images\logo.png</file>
       <file>C:\Users\hvidi\Desktop\OnePanelRepo\external scripts\save_to_base.m</file>
-      <file>C:\Users\hvidi\Desktop\OnePanelRepo\images\logo.png</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\TDMS_readTDMSFile.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_getDataSize.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_getDataTypeName.m</file>
