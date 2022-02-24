@@ -14,7 +14,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/SolarSpec/SpectraBuilder">
-    <img src="images/logo.png" alt="SolarSpec" width="160" height="120">
+    <img src="SpectrabuilderGUI_resources/logo.png" alt="SolarSpec" width="160" height="120">
   </a>
 
 <h3 align="center">Spectrabuilder GUI</h3>
@@ -201,4 +201,4 @@ Project Link: [https://github.com/SolarSpec/SpectraBuilder](https://github.com/S
 [license-url]: https://github.com/SolarSpec/SpectraBuilder/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/haris-vidimlic-06730019b/
-[product-screenshot]: images/Screenshot.png
+[product-screenshot]: SpectrabuilderGUI_resources/Screenshot.png
