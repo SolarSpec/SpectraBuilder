@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2440021120" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="4266275583" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email>vidihari@student.ubc.ca</param.email>
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp8200d1e1_ce0e_400d_9d31_7f8a0217be08.png</param.screenshot>
+    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp4bf9be84_4171_4c23_8d91_55641e97200a.png</param.screenshot>
     <param.version>3.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -41,8 +41,8 @@
       <file>${PROJECT_ROOT}\SolarSpecGUI.mlapp</file>
     </fileset.main>
     <fileset.depfun>
-      <file>C:\Users\hvidi\Desktop\PIAS Repo\images\logo.png</file>
-      <file>C:\Users\hvidi\Desktop\PIAS Repo\MATLAB data scripts\save_to_base.m</file>
+      <file>C:\Users\hvidi\Desktop\DLSmultiAverage\images\logo.png</file>
+      <file>C:\Users\hvidi\Desktop\OnePanelRepo\external scripts\save_to_base.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\TDMS_readTDMSFile.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_getDataSize.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_getDataTypeName.m</file>
