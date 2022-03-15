@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3382310090" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2994162330" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email>vidihari@student.ubc.ca</param.email>
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp3b25fd16_e258_42b6_aeb6_24c917a777d8.png</param.screenshot>
+    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp46c57d63_f87b_4edf_97f2_f9ecd8d25393.png</param.screenshot>
     <param.version>3.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -41,9 +41,8 @@
       <file>${PROJECT_ROOT}\SolarSpecGUI.mlapp</file>
     </fileset.main>
     <fileset.depfun>
-      <file>C:\Users\hvidi\Desktop\OnePanelRepo\external scripts\save_to_base.m</file>
-      <file>C:\Users\hvidi\Desktop\OnePanelRepo\OnePanelFig_resources\logo.png</file>
       <file>${PROJECT_ROOT}\LogLogApp.mlapp</file>
+      <file>${PROJECT_ROOT}\MATLAB data scripts\save_to_base.m</file>
       <file>${PROJECT_ROOT}\MATLAB data scripts\SpectraBuilder_lin2log_TAS.m</file>
       <file>${PROJECT_ROOT}\MATLAB data scripts\SpectraBuilderloadTDMSfolder.m</file>
       <file>${PROJECT_ROOT}\Matlab TDMS reader\TDMS_readTDMSFile.m</file>
@@ -58,6 +57,7 @@
       <file>${PROJECT_ROOT}\Matlab TDMS reader\tdmsSubfunctions\TDMS_processLeadIn.m</file>
       <file>${PROJECT_ROOT}\Matlab TDMS reader\tdmsSubfunctions\TDMS_readFileHelper_v1.m</file>
       <file>${PROJECT_ROOT}\Matlab TDMS reader\tdmsSubfunctions\TDMS_readFileHelper_v2.m</file>
+      <file>${PROJECT_ROOT}\SpectrabuilderGUI_resources\logo.png</file>
     </fileset.depfun>
     <fileset.resources />
     <fileset.package />
