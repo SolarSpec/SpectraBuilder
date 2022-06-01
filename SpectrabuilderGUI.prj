@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2967302142" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2769750830" file="C:\Users\hvidi\Desktop\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\hvidi\Desktop\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email>vidihari@student.ubc.ca</param.email>
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\hvidi\AppData\Local\Temp\tp682a4eb1_51e6_4623_b9d0_b176c1f43058.png</param.screenshot>
+    <param.screenshot>${PROJECT_ROOT}\SpectrabuilderGUI_resources\Screenshot.png</param.screenshot>
     <param.version>3.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -55,9 +55,9 @@
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_processLeadIn.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_readFileHelper_v1.m</file>
       <file>C:\Users\hvidi\Desktop\PIAS Repo\Matlab TDMS reader\tdmsSubfunctions\TDMS_readFileHelper_v2.m</file>
+      <file>C:\Users\hvidi\Desktop\Platform-Repo\SpectraBuilder\MATLAB data scripts\SpectraBuilder_lin2log_TAS.m</file>
+      <file>C:\Users\hvidi\Desktop\Platform-Repo\SpectraBuilder\MATLAB data scripts\SpectraBuilderloadTDMSfolder.m</file>
       <file>${PROJECT_ROOT}\LogLogApp.mlapp</file>
-      <file>${PROJECT_ROOT}\MATLAB data scripts\SpectraBuilder_lin2log_TAS.m</file>
-      <file>${PROJECT_ROOT}\MATLAB data scripts\SpectraBuilderloadTDMSfolder.m</file>
     </fileset.depfun>
     <fileset.resources />
     <fileset.package />
