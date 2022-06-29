@@ -20,7 +20,7 @@
 <h3 align="center">Spectrabuilder GUI</h3>
 
   <p align="center">
-    A Graphical User Interface 
+    A Graphical User Interface
     <br />
     <a href="https://github.com/SolarSpec/SpectraBuilder"><strong>Explore the docs »</strong></a>
     <br />
@@ -100,7 +100,7 @@ Click on the "Add-Ons" dropdown menu of your MATLAB Home screen. Then click on "
    ```sh
    git clone https://github.com/SolarSpec/SpectraBuilder.git
    ```
-2. Install the application 
+2. Install the application
    ```
    Click on the .mlappinstall file in your repository to open and install in MATLAB
    ```
@@ -115,6 +115,11 @@ Click on the "Add-Ons" dropdown menu of your MATLAB Home screen. Then click on "
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+To begin, load some TAS or TAM (.tdms) data using the "Load TDMS Data" button or load exported data of previous use with the "Load Log Data" button. The app will plot the optical difference or absorption percentage vs. time (s). The next and previous buttons at the bottom of the middle panel allow you to iterate through your TDMS files. You can also keep the Y Axis fixed as you iterate instead of having the scale automatically calculated. You can also switch the kinetics scale between linear and logarithmic types. The center button below the kinetics plot allows you to reset the scale to focus around the current displayed data. The spectra plot below the kinetics showcases the calculated spectra of the given time slices (initially 6 slices).
+
+In the right panel, the user can manually edit these slices by dragging the ROI lines or by inputting a specific centre time and changing the width. Due to log spacing, the time width is given in relative means (percentage). Below this table is metadata describing the background level, the wavelength of the current .tdms file, and additionally the channel chosen for the data. _If a certain channel is selected for the first .tdms file and is not present in the others, then the script follows a specified heirarchy of channels to assign: ["final A-B";"A-Test  dOD"] for processed data and ["B-Test  raw"; "A-Test  raw"] for raw data._ For ease of use, the correctly specified channel is highlighted in green whereas a backup channel is highlighted in red. The user can export the log spaced data as well as the spectra data in their own respective files using the two buttons at the bottom of the right panel.
+
+ On the left panel, the linear and log data buttons below the load buttons correspond to the spacing of the current .tdms file; either linear or log spacing. The user can export each figure into vector graphics (.EMF) and save them in chosen folder of .tdms files. The user can also save all the variables/properties of the app to the currrent workspace for further investigation. This feature is more useful for developers. There is also a reset button that allows the user to startup the app with the same folder without having to load everything again. Finally, there is a "LogLog Figure" button that opens a secondary app that allows the user to view log(ABS) vs. log(Time) and calculate the linear relation of this scatter data.
 
 This app is currently lacking in any examples. Coming soon...
 
