@@ -42,6 +42,10 @@ switch dataType
         typeName = 'logical';
     case 68
         typeName = 'timestamp';
+    case 524300 %complex single float
+        typeName = 'complexSingleFloat';
+    case 1048589 %complex double float
+        typeName = 'complexDoubleFloat';    
     case 2^32-1
          typeName = 'DAQmx';
     otherwise

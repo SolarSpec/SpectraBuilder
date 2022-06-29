@@ -35,6 +35,10 @@ switch dataType
         output   = false(1,nSamples);
     case 68
         output   = zeros(1,nSamples,'double');
+   	case 524300
+        output   = zeros(1,nSamples,'like',complex(single(1),single(1)));
+  	case 1048589     
+        output   = zeros(1,nSamples,'like',complex(1,1));
 %     case intmax('uint32')
 %         output   = zeros(1,nSamples,'int16');
     otherwise

@@ -1,4 +1,27 @@
-%                   TDMS_VERSION_INFO
+%TDMS_VERSION_INFO
+%
+%   
+%   Current Version: 2.6
+%   Date : 11/11/2020
+%   Authors : James Hokanson
+%   
+%   Well after 8 years I guess it was time for some updates!
+%
+%   I tried to update the documentation a bit which was ... (not great).
+%
+%   The main reason for this update was to handle complex data types.
+%
+%   Additionally, a user, Charlotte Maillot, sent in an example file that 
+%   didn't define new objects for the first segment, even though the first
+%   segment had data. My guess is a non-Labview writer was used to write
+%   this file. Anyway, I have now just always set the first segment to
+%   have new data objects. This seems to fix her problem.
+%
+%   Finally, Alice Van Derveer, sent some example code in which she was
+%   trying to only read 1 group at a time. Her data contained strings,
+%   which I was not skipping past appropriately. I had been skipping
+%   the # of strings, rather than the # of bytes in all the strings.
+%
 %
 %   Current Version: 2.5
 %   Date    : 7/28/2012

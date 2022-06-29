@@ -50,6 +50,14 @@ switch propDataType
         secondByte = fread(fid,1,'int64');
         tSeconds     = firstByte/(2^64)+secondByte;
         propValue    = datestr(tSeconds/SECONDS_IN_DAY + CONV_FACTOR + UTC_DIFF/24,DATE_STR_FORMAT);
+    case 524300 %complex single float
+        %hex2dec('8000c')
+        temp = fread(fid,2,'*single');
+        propValue = complex(temp(1),temp(2));
+    case 1048589 %complex double float
+        %hex2dec('10000d')
+        temp = fread(fid,2,'*double');
+        propValue = complex(temp(1),temp(2));
     otherwise
         error('Unhandled property type: %s',TDMS_getDataTypeName(propDataType))
 end

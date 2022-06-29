@@ -3,19 +3,45 @@ function [output,metaStruct] = TDMS_getStruct(filePath,structVersion,readOptions
 %
 %   output = TDMS_getStruct(*filePath,*structVer,*readOptions,*structConvOptions)
 %
-%   OPTIONAL INPUTS
-%   ===============================================
+%   Optional Inputs
+%   ---------------
 %   filePath          : (default prompts for file)
-%   structVersion     : (default ??, see code), determines which struct conversion
+%   structVersion     : (default 4, see code), determines which struct conversion
 %                       function to use
+%           Options are 1, 2, 3,or 4.
+%           Essentialy, these options handle how the data are presented
+%           to the user. 
+%           1 - Converts data names to safe variable names
+%           2 - This provides less of a structure and more iterable arrays
+%           3 - Like 1, but translates data AND property names
+%           4 - Gives even more fine control than 3 with renaming
 %   readOptions       : (default {}), gets passed into TDMS_readTDMSFile
 %   structConvOptions : (default {}), gets passed into conversion function
 %
-%   See Also: TDMS_readTDMSFile, 
-%             TDMS_dataToGroupChanStruct_v1,
-%             TDMS_dataToGroupChanStruct_v2,
-%             TDMS_dataToGroupChanStruct_v3,
-%             TDMS_dataToGroupChanStruct_v4
+%
+%   Examples
+%   --------
+%   %The most common usage
+%   data = TDMS_getStruct(file_path)
+%
+%   %Use a different structure forming function
+%   data = TDMS_getStruct(file_path,2)
+%   
+%   %Returns only properties and structure. For more advanced calls
+%   %see TDMS_retrievingSubsets. Also, names the property field
+%   %'Properties' instead of 'Props'
+%   %[] - uses the default (4)
+%   data = TDMS_getStruct(file_path,[],{'GET_DATA_OPTION','getnone'},{'prop_name','Properties'})
+%   
+%
+%   See Also
+%   --------
+%   TDMS_retrievingSubsets
+%   TDMS_readTDMSFile
+%  	TDMS_dataToGroupChanStruct_v1
+% 	TDMS_dataToGroupChanStruct_v2
+% 	TDMS_dataToGroupChanStruct_v3
+%  	TDMS_dataToGroupChanStruct_v4
 
 %LOCAL CONSTANTS
 DEFAULT_STRUCT_VERSION = 4;  %Feel free to change me if you'd like something different

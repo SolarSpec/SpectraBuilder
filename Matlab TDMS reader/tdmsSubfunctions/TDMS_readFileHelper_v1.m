@@ -23,24 +23,25 @@ rawDataInfo      = metaStruct.rawDataInfo;
 segInfo          = metaStruct.segInfo;
 numberDataPoints = metaStruct.numberDataPoints;
 
-numObjects = length(rawDataInfo);
-numSegs    = length(segInfo);
+n_objects = length(rawDataInfo);
+n_segs    = length(segInfo);
 
 %INITIALIZATION OF OBJECTS
 %==========================================================================
-curFileIndex  = zeros(1,numObjects); %current # of samples read from file
-curDataIndex  = zeros(1,numObjects); %current # of samples assigned to output
-data          = cell(1,numObjects);  %a pointer for each channel
-dataTypeArray = [rawDataInfo.dataType];
+cur_file_index  = zeros(1,n_objects); %current # of samples read from file
+cur_data_index  = zeros(1,n_objects); %current # of samples assigned to output
+data          = cell(1,n_objects);  %a pointer for each channel
+data_type_array = [rawDataInfo.dataType];
+total_bytes_arrray = [rawDataInfo.totalSizeBytes];
 
-propNames  = cell(1,numObjects);
-propValues = cell(1,numObjects);
+propNames  = cell(1,n_objects);
+propValues = cell(1,n_objects);
 
-for iObject = 1:numObjects
+for iObject = 1:n_objects
     propNames{iObject}  = rawDataInfo(iObject).propNames;
     propValues{iObject} = rawDataInfo(iObject).propValues;
     if numberDataPoints(iObject) > 0 && keepDataArray(iObject)
-        data{iObject} = TDMS_initData(dataTypeArray(iObject),numberDataPoints(iObject));
+        data{iObject} = TDMS_initData(data_type_array(iObject),numberDataPoints(iObject));
     end
 end
 
@@ -50,27 +51,27 @@ end
 
 %This will be used later for fread and fseek
 %Simplifies the switch statements
-[precisionType, nBytes] = TDMS_getTypeSeekSizes;
+[precision_type, nBytes] = TDMS_getTypeSeekSizes;
 
 %Get end of file position, seek back to beginning
 fseek(fid,0,1);
 eofPosition = ftell(fid);
 fseek(fid,0,-1);
 
-for iSeg = 1:numSegs
-    curSeg = segInfo(iSeg);
+for iSeg = 1:n_segs
+    cur_seg = segInfo(iSeg);
     %Seek to this raw position, this is needed to avoid meta data
-    fseek(fid,curSeg.rawPos,'bof');
+    fseek(fid,cur_seg.rawPos,'bof');
     
-    nChunksUse = curSeg.nChunks;
+    nChunksUse = cur_seg.nChunks;
     for iChunk = 1:nChunksUse
         %------------------------------------------------------------------
         %Interleaved data processing
         %------------------------------------------------------------------
-        if curSeg.isInterleaved
-            objOrder  = curSeg.objOrder;
-            dataTypes = dataTypeArray(objOrder);
-            nRead     = curSeg.nSamplesRead;
+        if cur_seg.isInterleaved
+            obj_order  = cur_seg.objOrder;
+            dataTypes = data_type_array(obj_order);
+            nRead     = cur_seg.nSamplesRead;
             
             %error checking
             if any(dataTypes ~= dataTypes(1))
@@ -82,16 +83,16 @@ for iSeg = 1:numSegs
             end
             
             %NOTE: unlike below, these are arrays that we are working with
-            startI = curFileIndex(objOrder) + 1;
-            endI   = curFileIndex(objOrder) + nRead(1);
-            curFileIndex(objOrder) = endI;
-            curDataIndex(objOrder) = endI;
+            startI = cur_file_index(obj_order) + 1;
+            endI   = cur_file_index(obj_order) + nRead(1);
+            cur_file_index(obj_order) = endI;
+            cur_data_index(obj_order) = endI;
             
-            nChans        = length(objOrder);
+            nChans        = length(obj_order);
             numValuesRead = nRead(1);
             switch dataTypes(1)
                 case {1 2 3 4 5 6 7 8 9 10}
-                    temp = fread(fid,numValuesRead*nChans,precisionType{dataTypes(1)});
+                    temp = fread(fid,numValuesRead*nChans,precision_type{dataTypes(1)});
                 case 32
                     error('Unexpected interleaved string data')
                     %In Labview 2009, the interleaved input is ignored
@@ -103,6 +104,12 @@ for iSeg = 1:numSegs
                     temp = fread(fid,numValuesRead*2*nChans,'*uint64');
                     temp = (double(temp(1:2:end))/2^64 + double(typecast(temp(2:2:end),'int64')))...
                         /SECONDS_IN_DAY + CONV_FACTOR + UTC_DIFF/24;
+                case 524300
+                    temp = fread(fid,2*numValuesRead*nChans,'*single');
+                    temp = complex(temp(1:2:end),temp(2:2:end));
+                case 1048589
+                    temp = fread(fid,2*numValuesRead*nChans,'*double');
+                    temp = complex(temp(1:2:end),temp(2:2:end));
                 otherwise
                     error('Unexpected data type: %d',dataTypes(1))
                     
@@ -118,34 +125,42 @@ for iSeg = 1:numSegs
             %   3 33
             temp = reshape(temp,[nChans numValuesRead]);
             for iChan = 1:nChans
-                if keepDataArray(objOrder(iChan))
-                    data{objOrder(iChan)}(startI(iChan):endI(iChan)) = temp(iChan,:);
+                if keepDataArray(obj_order(iChan))
+                    data{obj_order(iChan)}(startI(iChan):endI(iChan)) = temp(iChan,:);
                 end
             end
             
         else
+            
             %--------------------------------------------------------------
             %NOT INTERLEAVED
             %--------------------------------------------------------------
-            for iObjList = 1:length(curSeg.objOrder);
-                I_object = curSeg.objOrder(iObjList);
+            for iObjList = 1:length(cur_seg.objOrder)
+                I_object = cur_seg.objOrder(iObjList);
                 
-                numValuesAvailable   = curSeg.nSamplesRead(iObjList);
-                dataType             = dataTypeArray(I_object);
+                numValuesAvailable = cur_seg.nSamplesRead(iObjList);
+                dataType = data_type_array(I_object);
                 
-                curFileIndex(I_object) = curFileIndex(I_object) + numValuesAvailable;
+                cur_file_index(I_object) = cur_file_index(I_object) + numValuesAvailable;
                 
                 %Actual reading of data (or seeking past)
                 %------------------------------------------
-                if ~keepDataArray(I_object);
-                    fseek(fid,numValuesAvailable*nBytes(dataType),'cof');
+                if ~keepDataArray(I_object)
+                    if dataType == 32
+                        %I don't think we need the data type check if we
+                        %use this ...
+                        n_string_bytes = total_bytes_arrray(I_object);
+                        fseek(fid,n_string_bytes,'cof');
+                    else
+                        fseek(fid,numValuesAvailable*nBytes(dataType),'cof');
+                    end
                 else
-                    startI = curDataIndex(I_object) + 1;
-                    endI   = curDataIndex(I_object) + numValuesAvailable;
-                    curDataIndex(I_object) = endI;
+                    startI = cur_data_index(I_object) + 1;
+                    endI   = cur_data_index(I_object) + numValuesAvailable;
+                    cur_data_index(I_object) = endI;
                     switch dataType
                         case {1 2 3 4 5 6 7 8 9 10}
-                            data{I_object}(startI:endI) = fread(fid,numValuesAvailable,precisionType{dataType});
+                            data{I_object}(startI:endI) = fread(fid,numValuesAvailable,precision_type{dataType});
                         case 32
                             %Done above now ...
                             strOffsetArray = [0; fread(fid,numValuesAvailable,'uint32')];
@@ -165,6 +180,12 @@ for iSeg = 1:numSegs
                             %Second row: conversion to days, and changing of reference frame
                             data{I_object}(startI:endI) = (double(temp(1:2:end))/2^64 + double(typecast(temp(2:2:end),'int64')))...
                                 /SECONDS_IN_DAY + CONV_FACTOR + UTC_DIFF/24;
+                        case 524300
+                            temp = fread(fid,2*numValuesAvailable,'*single');
+                            data{I_object}(startI:endI) = complex(temp(1:2:end),temp(2:2:end));
+                        case 1048589
+                            temp = fread(fid,2*numValuesAvailable,'*double');
+                            data{I_object}(startI:endI) = complex(temp(1:2:end),temp(2:2:end));
                         otherwise
                             error('Unexpected type: %d', dataType)
                     end
@@ -175,7 +196,7 @@ for iSeg = 1:numSegs
     
     
     %Some error checking just in case
-    if iSeg ~= numSegs
+    if iSeg ~= n_segs
         Ttag = fread(fid,1,'uint8');
         Dtag = fread(fid,1,'uint8');
         Stag = fread(fid,1,'uint8');
@@ -192,7 +213,7 @@ end
 
 %ERROR CHECKING ON # OF VALUES READ
 %==========================================================================
-if ~isequal(numValuesToGetActual,curDataIndex)
+if ~isequal(numValuesToGetActual,cur_data_index)
     error('The # of requested values does not equal the # of returned values, error in code likely')
 end
 

@@ -32,13 +32,13 @@ function TDMS_retrievingSubsets
 %       - ** META_STRUCT
 %
 %   EXAMPLE:
-%   a) [~,metaStruct] = TDMS_readTDMSfile(fileName,'GET_DATA_OPTION','getnone')
+%   a) [~,metaStruct] = TDMS_readTDMSFile(fileName,'GET_DATA_OPTION','getnone')
 %
 %      %some code ...
 %      objStruct = struct;
 %      objStruct.groupsKeep = {'myGroup1' 'myGroup2'};
 %   
-%      data = TDMS_readTDMSfile(fileName,'META_STRUCT',metaStruct,...
+%      data = TDMS_readTDMSFile(fileName,'META_STRUCT',metaStruct,...
 %               'GET_DATA_OPTION','getSubset','OBJECTS_GET',objStruct);
 %
 %
@@ -58,11 +58,11 @@ function TDMS_retrievingSubsets
 %       - ** SUBSET_IS_LENGTH
 %       
 %   EXAMPLES:
-%   a) [~,metaStruct] = TDMS_readTDMSfile(fileName,'GET_DATA_OPTION','getnone')
+%   a) [~,metaStruct] = TDMS_readTDMSFile(fileName,'GET_DATA_OPTION','getnone')
 %
 %   %some code ...
 %   
-%   data = TDMS_readTDMSfile(metaStruct,'SUBSET_GET',[100 2000],...
+%   data = TDMS_readTDMSFile(metaStruct,'SUBSET_GET',[100 2000],...
 %                       'SUBSET_IS_LENGTH',true)
 %
 %   This reads the same amount of data from all objects with data.  The
@@ -82,14 +82,14 @@ function TDMS_retrievingSubsets
 %       - ** SUBSET_IS_LENGTH
 %
 %   EXAMPLES:
-%   a) [~,metaStruct] = TDMS_readTDMSfile(fileName,'GET_DATA_OPTION','getnone')
+%   a) [~,metaStruct] = TDMS_readTDMSFile(fileName,'GET_DATA_OPTION','getnone')
 %
 %   %some code
 %   
 %   getStruct = struct('group',myGroup,'channel',myChannel,...
 %       indices,[1 5; 10 5; 20 5; 30 5]);
 %
-%   data = TDMS_readTDMSfile(metaStruct,'GET_INDICES',getStruct);
+%   data = TDMS_readTDMSFile(metaStruct,'GET_INDICES',getStruct);
 %
 %   SIDENOTE ON IMAGES:
 %   Since tdms does not support 2d writing, image data itself can be 

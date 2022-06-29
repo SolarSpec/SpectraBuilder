@@ -1,5 +1,5 @@
 function output = TDMS_dataToGroupChanStruct_v3(inputStruct,varargin)
-%TDMS_dataToGroupChanStruct_v3  
+%TDMS_dataToGroupChanStruct_v3
 %
 %   translates objects AND properties to valid field names
 %
@@ -16,13 +16,31 @@ function output = TDMS_dataToGroupChanStruct_v3(inputStruct,varargin)
 %   ALWAYS_PREPEND = default false, if true always prepends the prepend string,
 %               regardless of whether or not it is needed
 %
-%   
 %
-%   See Also: TDMS_genvarname2
+%
+%   See Also
+%   --------
+%   TDMS_genvarname2
+%   TDMS_dataToGroupChanStruct_v4
 
 REPLACE_STR = '_';
 PREPEND_STR = 'v';
 ALWAYS_PREPEND = false;
+
+for i = 1:2:length(varargin)
+    switch upper(varargin{i})
+        case 'REPLACE_STR'
+            REPLACE_STR = varargin{i+1};
+        case 'PREPEND_STR'
+            PREPEND_STR = varargin{i+1};
+        case 'ALWAYS_PREPEND'
+            ALWAYS_PREPEND = varargin{i+1};
+        otherwise
+            error('Unrecognized option: %s',varargin{i});
+    end
+end
+
+
 
 propNames    = inputStruct.propNames;
 propValues   = inputStruct.propValues;
@@ -62,6 +80,6 @@ end
 function propStruct = propsToStruct(names,values,REPLACE_STR,PREPEND_STR,ALWAYS_PREPEND)
 propStruct = struct([]);
 for iProp = 1:length(names)
-   propStruct(1).(TDMS_genvarname2(names{iProp},REPLACE_STR,PREPEND_STR,ALWAYS_PREPEND)) = values{iProp}; 
+    propStruct(1).(TDMS_genvarname2(names{iProp},REPLACE_STR,PREPEND_STR,ALWAYS_PREPEND)) = values{iProp};
 end
 end

@@ -52,7 +52,9 @@ function [outputStruct,navigator] = TDMS_dataToGroupChanStruct_v2(inputStruct,va
 %           .chanIndices   - together with groupIndices allows one to grab
 %                            a particular channel object
 %
-%   See also: TDMS_readTDMSFile
+%   See also
+%   TDMS_readTDMSFile
+%   TDMS_getStruct
 
 %EXAMPLE OF OUTPUT FORMAT
 %==========================================================================

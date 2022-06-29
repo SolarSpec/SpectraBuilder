@@ -5,14 +5,17 @@ function metaStruct = TDMS_preprocessFile(fid,tdmsFileName,params)
 %
 %   metaStruct = TDMS_preprocessFile(fid,tdmsFileName,params)
 %
-%   INPUTS
-%   =======================================================================
-%   fid          : file id of opened tdms file, may be null if INDEX_DEBUG is true
-%   tdmsFileName : full path to tdms file OR tdms index file for INDEX_DEBUG
-%   params       : all optional inputs from TDMS_readTDMSFile
+%   Inputs
+%   ------
+%   fid : 
+%           File id of opened tdms file, may be null if INDEX_DEBUG is true
+%   tdmsFileName : 
+%           Full path to tdms file OR tdms index file for INDEX_DEBUG
+%   params : 
+%       All optional inputs from TDMS_readTDMSFile
 %
-%   OUTPUTS
-%   =======================================================================
+%   Outputs
+%   -------
 %   metaStruct :
 %       structure with fields:
 %
@@ -146,10 +149,10 @@ segInfo     = initSegStruct(N_SEGS_GUESS);
 
 %TEMP VARIABLES
 %==========================================================================
-objectHasRawData    = false(1,MAX_NUM_OBJECTS); %This is needed for adding
+objectHasRawData = false(1,MAX_NUM_OBJECTS); %This is needed for adding
 %# of data points together
-ranOnce    = false;
-nSegs      = 0;
+ran_once = false;
+n_segs = 0;
 
 %Get eof & return to start
 fseek(fid,0,1);
@@ -163,39 +166,43 @@ curPosCounter = 0; %Used to keep track of where in the actual tdms file we
 %as assisting with more complicated reads
 while ftell(fid) ~= eofPosition
     
-    nSegs = nSegs + 1;
-    if nSegs > length(segInfo)
+    n_segs = n_segs + 1;
+    if n_segs > length(segInfo)
         segInfo = [segInfo initSegStruct(N_SEGS_INC)]; %#ok<AGROW>
     end
     
     if DEBUG
         disp('------  START OF DEBUG -------')
-        fprintf(2,'CURRENT SEGMENT: %d\n',nSegs);
+        fprintf(2,'CURRENT SEGMENT: %d\n',n_segs);
         fprintf(2,'Current file position: %d\n',curPosCounter);
     end
     
     %LEAD IN HANDLING
     %======================================================================
-    [flags,info,eof_error]  = TDMS_processLeadIn(fid,lastLetter);
+    [flags,info,eof_error] = TDMS_processLeadIn(fid,lastLetter);
     
     if eof_error
         %This should only happen once at the end 
         fprintf(2,['WARNING: File was not closed properly.\n' ... 
             'Data will most likely be missing at the end of the file\n']);
-        nSegs = nSegs - 1;
+        n_segs = n_segs - 1;
         break
     end
     
     curPosCounter = curPosCounter + LEAD_IN_LENGTH + info.segLength;
-    segInfo(nSegs).rawPos = curPosCounter - info.segLength + info.metaLength;
+    segInfo(n_segs).rawPos = curPosCounter - info.segLength + info.metaLength;
     
     
-    if ~ranOnce
+    if ~ran_once
         %NOTE: This might be false if no channels are defined ...
-        if flags.kTocNewObjList == false
-            error('the kTocNewObjList was false when first run, this is not expected')
+        if ~flags.kTocNewObjList
+            %... ran into a file that on the first segment this was false 
+            %but we had objects ...
+            flags.kTocNewObjList = true;
+            %warning
+            %error('the kTocNewObjList was false when first run, this is not expected')
         end
-        ranOnce = true;
+        ran_once = true;
     end
     %======================================================================
     
@@ -206,19 +213,19 @@ while ftell(fid) ~= eofPosition
     if flags.hasMetaData
         
         %Get # of changed objects
-        numNewObjInSeg = fread(fid,1,'uint32');
+        n_new_obj_in_seg = fread(fid,1,'uint32');
         
         %Reinitialize order list if new
         if flags.kTocNewObjList
-            curObjListCount      = 0;
-            objOrder             = zeros(1,2*numNewObjInSeg);
-            nValuesRead          = zeros(1,2*numNewObjInSeg);
+            cur_obj_list_count = 0;
+            obj_order = zeros(1,2*n_new_obj_in_seg);
+            n_values_read = zeros(1,2*n_new_obj_in_seg);
             %NOTE: I padded this by doubling the #, we might append extra
             %channels in subsequent reads, I currently don't resize this
             %...
         end
         
-        for iNewObject = 1:numNewObjInSeg
+        for iNewObject = 1:n_new_obj_in_seg
             
             %1) GET OBJECT PATH
             %-------------------------------
@@ -228,8 +235,8 @@ while ftell(fid) ~= eofPosition
             
             %POPULATE ALL OBJECT LIST
             %----------------------------------------
-            objIndex = find(strcmp(objectNameList(1:curNumTotalObjects),objName),1);
-            if isempty(objIndex)
+            obj_I = find(strcmp(objectNameList(1:curNumTotalObjects),objName),1);
+            if isempty(obj_I)
                 curNumTotalObjects  = curNumTotalObjects + 1;
                 if curNumTotalObjects > length(rawDataInfo)
                     rawDataInfo      = [rawDataInfo      ...
@@ -238,7 +245,7 @@ while ftell(fid) ~= eofPosition
                     objectNameList   = [objectNameList   cell(1,MAX_NUM_OBJECTS)]; %#ok<AGROW>
                     objectHasRawData = [objectHasRawData false(1,MAX_NUM_OBJECTS)];  %#ok<AGROW>
                 end
-                objIndex            = curNumTotalObjects;
+                obj_I = curNumTotalObjects;
                 objectNameList{curNumTotalObjects} = objName;
             end
             
@@ -248,61 +255,61 @@ while ftell(fid) ~= eofPosition
             %---------------------------------------------
             curPos = ftell(fid);
             
-            rawDataIndexLength = fread(fid,1,'uint32');
+            raw_data_index_length = fread(fid,1,'uint32');
             
-            rawDataInfo(objIndex).lengthOfIndex = rawDataIndexLength;
+            rawDataInfo(obj_I).lengthOfIndex = raw_data_index_length;
             
             if DEBUG
-                fprintf(2,'RawDataLength: %d\n',rawDataIndexLength);
+                fprintf(2,'RawDataLength: %d\n',raw_data_index_length);
                 fprintf(2,'CurrentPos: %d\n',curPos);
             end
             
             
-            switch rawDataIndexLength
+            switch raw_data_index_length
                 case 0 %Same as previous
-                    if rawDataInfo(objIndex).infoSet == false
+                    if rawDataInfo(obj_I).infoSet == false
                         error('Channel %s set to use previous rawDataIndex but this channel is new',objName)
                     end
                     
                     %NOTE: "same as previous segment" apparently means
                     %"same as the previous one with data ..."
                     
-                    if rawDataInfo(objIndex).numberOfValues > 0 && ~objectHasRawData(objIndex)
-                        objectHasRawData(objIndex) = true;
+                    if rawDataInfo(obj_I).numberOfValues > 0 && ~objectHasRawData(obj_I)
+                        objectHasRawData(obj_I) = true;
                     end
                     
                 case 2^32-1 %no raw data
-                    rawDataInfo(objIndex).infoSet    = true;
-                    objectHasRawData(objIndex)       = false;
+                    rawDataInfo(obj_I).infoSet    = true;
+                    objectHasRawData(obj_I)       = false;
                 otherwise
-                    objectHasRawData(objIndex)    = true;
-                    rawDataInfo(objIndex).infoSet = true;
+                    objectHasRawData(obj_I)    = true;
+                    rawDataInfo(obj_I).infoSet = true;
                     
                     %DATA TYPE HANDLING
                     %------------------------------------------------------
-                    dataType = fread(fid,1,'uint32');
-                    if rawDataInfo(objIndex).infoSet && dataType ~= rawDataInfo(objIndex).dataType && numberDataPoints(objIndex) > 0
+                    data_type = fread(fid,1,'uint32');
+                    if rawDataInfo(obj_I).infoSet && data_type ~= rawDataInfo(obj_I).dataType && numberDataPoints(obj_I) > 0
                         error('Raw data type for channel %s has changed from %d to %d',...
-                            objName,rawDataInfo(objIndex).dataType,dataType)
+                            objName,rawDataInfo(obj_I).dataType,data_type)
                     else
-                        rawDataInfo(objIndex).dataType = dataType;
+                        rawDataInfo(obj_I).dataType = data_type;
                     end
 
                     %DATA SIZE HANDLING
                     %-----------------------------------------------------
-                    rawDataInfo(objIndex).dimensionData  = fread(fid,1,'uint32');
-                    if rawDataInfo(objIndex).dimensionData ~= 1
+                    rawDataInfo(obj_I).dimensionData  = fread(fid,1,'uint32');
+                    if rawDataInfo(obj_I).dimensionData ~= 1
                         error('Code doesn''t yet handle non 1D data')
                     end
                     
-                    rawDataInfo(objIndex).numberOfValues = fread(fid,1,'uint64');
+                    rawDataInfo(obj_I).numberOfValues = fread(fid,1,'uint64');
                     
                     %RawDaqMX
                     %------------------------------------------------------
                     %NOTES:
-                    if dataType == 2^32-1
+                    if data_type == 2^32-1
                         %JIM CODE IN PROGRESS
-                        rawDataInfo(objIndex).isRawDAQmx = true; %We can
+                        rawDataInfo(obj_I).isRawDAQmx = true; %We can
 % % %                         %post process this to convert from bits to an
 % % %                         %actual value
 % % %                         
@@ -330,23 +337,23 @@ while ftell(fid) ~= eofPosition
 % % %                         %3) Update datetype - where the heck is it?
 % % %                         %rawDataInfo(objIndex).dataType = dataType;
                     else %Non RawDAQmx type
-                        if rawDataInfo(objIndex).dataType == 32
+                        if rawDataInfo(obj_I).dataType == 32
                             %If string, size is specified by an additional field
-                            rawDataInfo(objIndex).totalSizeBytes = fread(fid,1,'uint64');
+                            rawDataInfo(obj_I).totalSizeBytes = fread(fid,1,'uint64');
                         else
-                            rawDataInfo(objIndex).totalSizeBytes = ...
-                                rawDataInfo(objIndex).numberOfValues*TDMS_getDataSize(dataType);
+                            rawDataInfo(obj_I).totalSizeBytes = ...
+                                rawDataInfo(obj_I).numberOfValues*TDMS_getDataSize(data_type);
                         end
                         
                         %Another chance to check correct reading
-                        if curPos + rawDataIndexLength ~= ftell(fid)
+                        if curPos + raw_data_index_length ~= ftell(fid)
                             error(['Raw Data Index length was incorrect: %d stated vs %d observed,' ...
-                                'likely indicates bad code or a bad tdms file'],rawDataIndexLength,ftell(fid) - curPos)
+                                'likely indicates bad code or a bad tdms file'],raw_data_index_length,ftell(fid) - curPos)
                         end
                     end
                     
                     if DEBUG
-                        fprintf(2,'nSegs: %d\n',nSegs);
+                        fprintf(2,'nSegs: %d\n',n_segs);
                         fprintf(2,'objName: %s\n',objName);
                     end
             end
@@ -355,16 +362,16 @@ while ftell(fid) ~= eofPosition
             %--------------------------------------------------------------
             %POPULATE ORDER TO RETRIEVE RAW DATA
             %--------------------------------------------------------------
-            if objectHasRawData(objIndex)
+            if objectHasRawData(obj_I)
                 appendToList = false;
                 if flags.kTocNewObjList
                     appendToList = true;
                 else %Only append if not currently specified
-                    I_objOrder = find(objOrder(1:curObjListCount) == objIndex,1);
+                    I_objOrder = find(obj_order(1:cur_obj_list_count) == obj_I,1);
                     if isempty(I_objOrder)
                         appendToList = true;
                     else
-                        nValuesRead(I_objOrder) = rawDataInfo(objIndex).numberOfValues;
+                        n_values_read(I_objOrder) = rawDataInfo(obj_I).numberOfValues;
                     end
                 end
                 
@@ -373,9 +380,9 @@ while ftell(fid) ~= eofPosition
                 %in a segement when a new list is created, new segments
                 %might add more objects to the list
                 if appendToList
-                    curObjListCount                 = curObjListCount + 1;
-                    objOrder(curObjListCount)       = objIndex;
-                    nValuesRead(curObjListCount)    = rawDataInfo(objIndex).numberOfValues;
+                    cur_obj_list_count                 = cur_obj_list_count + 1;
+                    obj_order(cur_obj_list_count)       = obj_I;
+                    n_values_read(cur_obj_list_count)    = rawDataInfo(obj_I).numberOfValues;
                 end
             end
             
@@ -384,8 +391,8 @@ while ftell(fid) ~= eofPosition
             %--------------------------------------------------------------
             numberProperties = fread(fid,1,'uint32');
             %Below is the # of props already assigned to that channel
-            nPropsChan       = rawDataInfo(objIndex).numberProperties;
-            curProps         = rawDataInfo(objIndex).propNames;
+            nPropsChan       = rawDataInfo(obj_I).numberProperties;
+            curProps         = rawDataInfo(obj_I).propNames;
             
             for iProp = 1:numberProperties
                 propNameLength  = fread(fid,1,'uint32');
@@ -399,14 +406,14 @@ while ftell(fid) ~= eofPosition
                     nPropsChan              = nPropsChan + 1;
                     propIndex               = nPropsChan;
                     curProps{propIndex}     = propName;
-                    rawDataInfo(objIndex).propNames{propIndex} = propName;
+                    rawDataInfo(obj_I).propNames{propIndex} = propName;
                 end
                
                 %Update value
                 propValue = TDMS_getPropValue(fid,propDataType,UTC_DIFF,DATE_STR_FORMAT);
-                rawDataInfo(objIndex).propValues{propIndex} = propValue;
+                rawDataInfo(obj_I).propValues{propIndex} = propValue;
             end
-            rawDataInfo(objIndex).numberProperties = nPropsChan;
+            rawDataInfo(obj_I).numberProperties = nPropsChan;
             
             if DEBUG
                 fprintf(2,'end of index position: %d\n',ftell(fid));
@@ -421,27 +428,27 @@ while ftell(fid) ~= eofPosition
     %RAW DATA SAMPLE COUNTING
     %======================================================================
     
-    segInfo(nSegs).kTocNewObjList = flags.kTocNewObjList;
+    segInfo(n_segs).kTocNewObjList = flags.kTocNewObjList;
     byteSizeRaw = info.segLength - info.metaLength;
     if ~flags.hasRawData || byteSizeRaw == 0
-        segInfo(nSegs).nChunks = 0;
+        segInfo(n_segs).nChunks = 0;
     else
-        segInfo(nSegs).objOrder      = objOrder(1:curObjListCount);
-        segInfo(nSegs).nRawObjects   = curObjListCount;
-        segInfo(nSegs).nSamplesRead  = nValuesRead(1:curObjListCount);
-        segInfo(nSegs).isInterleaved = flags.isInterleaved;
-        segInfo(nSegs).isBigEndian   = flags.isBigEndian;
+        segInfo(n_segs).objOrder      = obj_order(1:cur_obj_list_count);
+        segInfo(n_segs).nRawObjects   = cur_obj_list_count;
+        segInfo(n_segs).nSamplesRead  = n_values_read(1:cur_obj_list_count);
+        segInfo(n_segs).isInterleaved = flags.isInterleaved;
+        segInfo(n_segs).isBigEndian   = flags.isBigEndian;
         
         %# OF CHUNK PROCESSING
         %------------------------------------------------------------------
-        totalBytesPerChunk = sum([rawDataInfo(objOrder(1:curObjListCount)).totalSizeBytes]);
+        totalBytesPerChunk = sum([rawDataInfo(obj_order(1:cur_obj_list_count)).totalSizeBytes]);
         nChunks            = byteSizeRaw/totalBytesPerChunk;
         
         %Some error checking
         %------------------------------------------
         if DEBUG
             fprintf(2,'nChunks: %d\n',nChunks);
-            fprintf(2,'nSamplesRead: %s\n',mat2str(nValuesRead(1:curObjListCount)));
+            fprintf(2,'nSamplesRead: %s\n',mat2str(n_values_read(1:cur_obj_list_count)));
             fprintf(2,'totalBytesPerChunk: %d\n',totalBytesPerChunk);
             fprintf(2,'byteSizeRaw: %d\n',byteSizeRaw);
         end
@@ -453,9 +460,9 @@ while ftell(fid) ~= eofPosition
         
         chunkByteOffset = 0;
         %Increment the number of data points
-        for iObject = 1:curObjListCount
+        for iObject = 1:cur_obj_list_count
             
-            curIndex = objOrder(iObject);
+            curIndex = obj_order(iObject);
             
             nSamplesReadCurObject = rawDataInfo(curIndex).numberOfValues;
             
@@ -476,14 +483,14 @@ while ftell(fid) ~= eofPosition
                 %Column 1, file position
                 indices = (rawDataInfo(curIndex).chunkIndex+1):(rawDataInfo(curIndex).chunkIndex+nChunks);
                 rawDataInfo(curIndex).dataMatrix(indices,1) = ...
-                    segInfo(nSegs).rawPos + chunkByteOffset + (0:totalBytesPerChunk:(nChunks-1)*totalBytesPerChunk);
+                    segInfo(n_segs).rawPos + chunkByteOffset + (0:totalBytesPerChunk:(nChunks-1)*totalBytesPerChunk);
 
                 %Column 2, first sample at that position
                 rawDataInfo(curIndex).dataMatrix(indices,2) = ...
                     numberDataPoints(curIndex) + (0:nSamplesReadCurObject:(nChunks-1)*nSamplesReadCurObject) + 1;
 
                 %Column 3, segment number
-                rawDataInfo(curIndex).dataMatrix(indices,3) = nSegs;
+                rawDataInfo(curIndex).dataMatrix(indices,3) = n_segs;
 
                 chunkByteOffset                  = chunkByteOffset + rawDataInfo(curIndex).totalSizeBytes;
                 numberDataPoints(curIndex)       = numberDataPoints(curIndex) + nSamplesReadCurObject*nChunks;
@@ -492,7 +499,7 @@ while ftell(fid) ~= eofPosition
         end
         
         %nChunksAll = nChunksAll + nChunks;
-        segInfo(nSegs).nChunks = nChunks;
+        segInfo(n_segs).nChunks = nChunks;
         
         %This needs to be handled in some manner for RawDaqMx
         if ~isIndexFID
@@ -531,7 +538,7 @@ end
 
 numberDataPoints    = numberDataPoints(1:curNumTotalObjects);
 objectNameList     = objectNameList(1:curNumTotalObjects);
-segInfo             = segInfo(1:nSegs);
+segInfo             = segInfo(1:n_segs);
 
 metaStruct = struct(...
     'eof_error',        eof_error,...

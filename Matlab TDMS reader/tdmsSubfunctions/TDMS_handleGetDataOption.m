@@ -108,7 +108,7 @@ else
     %======================================================================
     %NOTE: This variable is ultimately ignored if GET_INDICES is specified
     switch lower(GET_DATA_OPTION)
-        case 'getall';
+        case 'getall'
             keepDataArray = true(1,numObjects);
         case 'getsubset'
             if ~isfield(OBJECTS_GET,'fullPathsKeep')

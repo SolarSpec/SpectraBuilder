@@ -1,7 +1,11 @@
 function data = TDMS_readFileHelper_v2(fid,optionStruct,metaStruct,paramsStruct)
 %TDMS_readFileHelper_v2
 %
+%   This code supports reading only a subset of the data from disk ...
 %
+%   See Also
+%   --------
+%   TDMS_readFileHelper_v1
 
 SECONDS_IN_DAY  = paramsStruct.SECONDS_IN_DAY;
 CONV_FACTOR     = paramsStruct.CONV_FACTOR;
@@ -43,15 +47,15 @@ for iRead = 1:size(subsetInfo,1)
     fseek(fid,subsetInfo(iRead,1),'bof');
     
     I_object      = subsetInfo(iRead,4);
-    numValuesRead = subsetInfo(iRead,2);
+    n_values_read = subsetInfo(iRead,2);
     dataType      = dataTypeArray(I_object);
     
     startI = curDataIndex(I_object) + 1;
-    endI   = curDataIndex(I_object) + numValuesRead;
+    endI   = curDataIndex(I_object) + n_values_read;
     curDataIndex(I_object) = endI;
     switch dataType
         case {1 2 3 4 5 6 7 8 9 10} %numeric
-            data{I_object}(startI:endI) = fread(fid,numValuesRead,precisionType{dataType});
+            data{I_object}(startI:endI) = fread(fid,n_values_read,precisionType{dataType});
         case 32 %strings
             curSeg             = segInfo(subsetInfo(iRead,5));
             numValuesAvailable = curSeg.nSamplesRead(curSeg.objOrder == I_object);
@@ -68,13 +72,20 @@ for iRead = 1:size(subsetInfo,1)
                 data{I_object}{offsetString} = native2unicode(temp,STRING_ENCODING)'; %#ok<*N2UNI>
             end
         case 33 %boolean
-            data{I_object}(startI:endI) = logical(fread(fid,numValuesRead,'uint8'));
+            data{I_object}(startI:endI) = logical(fread(fid,n_values_read,'uint8'));
         case 68 %timestamps
-            temp = fread(fid,numValuesRead*2,'*uint64');
+            temp = fread(fid,n_values_read*2,'*uint64');
             %First row: conversion to seconds
             %Second row: conversion to days, and changing of reference frame
             data{I_object}(startI:endI) = (double(temp(1:2:end))/2^64 + double(typecast(temp(2:2:end),'int64')))...
                 /SECONDS_IN_DAY + CONV_FACTOR + UTC_DIFF/24;
+        case 524300
+            temp = fread(fid,2*n_values_read,'*single');
+            data{I_object}(startI:endI) = complex(temp(1:2:end),temp(2:2:end));
+        case 1048589
+            temp = fread(fid,2*n_values_read,'*double');
+            data{I_object}(startI:endI) = complex(temp(1:2:end),temp(2:2:end));
+            
         otherwise
             error('Unexpected type: %d', dataType)
     end

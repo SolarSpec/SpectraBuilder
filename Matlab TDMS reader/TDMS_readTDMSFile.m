@@ -3,6 +3,10 @@ function [finalOutput,metaStruct] = TDMS_readTDMSFile(tdmsFileName,varargin)
 %
 %   [finalOutput,metaStruct] = TDMS_readTDMSFile(tdmsFileName)
 %
+%   ****************************************************************
+%   For most users I recommend that you call TDMS_getStruct instead.
+%   ****************************************************************
+%
 %   [...] = TDMS_readTDMSFile(tdmsFileName,'Property1',PropertyValue1,...)
 %   allows for specification of additional properties.
 %

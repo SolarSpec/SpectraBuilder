@@ -13,6 +13,25 @@ PREPEND_CHAN_STRING = 'c_';
 ALWAYS_PREPEND = false;
 PROP_NAME = 'Props';
 
+for i = 1:2:length(varargin)
+    switch upper(varargin{i})
+        case 'REPLACE_STR'
+            REPLACE_STR = varargin{i+1};
+        case 'PREPEND_STR'
+            PREPEND_STR = varargin{i+1};
+        case 'PREPEND_GRP_STRING'
+            PREPEND_GRP_STRING = varargin{i+1};
+        case 'PREPEND_CHAN_STRING'
+            PREPEND_CHAN_STRING = varargin{i+1};
+        case 'ALWAYS_PREPEND'
+            ALWAYS_PREPEND = varargin{i+1};
+        case 'PROP_NAME'
+            PROP_NAME = varargin{i+1};
+        otherwise
+            error('Unrecognized option: %s',varargin{i});
+    end
+end
+
 propNames    = inputStruct.propNames;
 propValues   = inputStruct.propValues;
 groupIndices = inputStruct.groupIndices;
