@@ -73,6 +73,8 @@ for FileIndex = 1:1:size(FolderContent,1)
         AbsDataIndex = TDMScontent.chanIndices{1,CH0GroupIndex}(AbsChanIndex);
 
         if ~any(TDMScontent.data{1,AbsDataIndex}(1:5)) == 1 && ~any(TDMScontent.data{1,AbsDataIndex}(end-4:end)) == 1 
+            app.Channels(end) = [];
+            app.RedGreen(ends) = [];
             continue % DO NOT ADD IF COLUMN IS FULL OF ZEROS
         end
         
