@@ -67,7 +67,7 @@
 ## About The Project
 
 [![SpectraBuilder Screenshot][product-screenshot]](https://solarspec.ok.ubc.ca/)
-Format basic properties of your plots through our GUI
+Import kinetics TAS data in the form of .tdms files to process individual time slices into their respective spectra.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
