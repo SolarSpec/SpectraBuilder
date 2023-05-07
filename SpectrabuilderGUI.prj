@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3180280439" file="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3694500347" file="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\SpectraBuilder\SpectrabuilderGUI.prj" location="C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\SpectraBuilder" name="SpectrabuilderGUI" target="target.mlapps" target-name="Package App">
     <param.appname>SpectrabuilderGUI</param.appname>
     <param.authnamewatermark>James Kivai, Haris Vidimlic, Robert Godin</param.authnamewatermark>
     <param.email>vidihari@student.ubc.ca</param.email>
@@ -12,7 +12,7 @@
     </param.icons>
     <param.summary>Analyze linear or log files of TAS/TAM data. Process data into a graphical user interface for user adjustments.</param.summary>
     <param.description />
-    <param.screenshot>C:\Users\mirac\AppData\Local\Temp\tp456470d6_af8a_47fb_bbb5_9b5164b06ad4.png</param.screenshot>
+    <param.screenshot>C:\Users\mirac\AppData\Local\Temp\tpbc7dee9f_fdc4_470f_95fb_3156637c1c31.png</param.screenshot>
     <param.version>3.5</param.version>
     <param.products.name>
       <item>MATLAB</item>
@@ -41,8 +41,27 @@
       <file>${PROJECT_ROOT}\SolarSpecGUI.mlapp</file>
     </fileset.main>
     <fileset.depfun>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\OnePanelFig\external scripts\save_to_base.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\OnePanelFig\OnePanelFig_resources\logo.png</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\MATLAB data scripts\lin2log_TAS.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\TDMS_dataToGroupChanStruct_v1.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\TDMS_dataToGroupChanStruct_v2.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\TDMS_dataToGroupChanStruct_v3.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\TDMS_dataToGroupChanStruct_v4.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\TDMS_readTDMSFile.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_genvarname2.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_getDataSize.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_getDataTypeName.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_getGroupChanNames.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_getPropValue.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_getTypeSeekSizes.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_handleGetDataOption.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_initData.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_preprocessFile.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_processLeadIn.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_readFileHelper_v1.m</file>
+      <file>C:\Users\mirac\OneDrive\Desktop\SolarSPEC\GitFolders\Platform-Repo\PIASgui\Matlab TDMS reader\tdmsSubfunctions\TDMS_readFileHelper_v2.m</file>
       <file>${PROJECT_ROOT}\LogLogApp.mlapp</file>
-      <file>${PROJECT_ROOT}\SpectrabuilderGUI_resources\logo.png</file>
     </fileset.depfun>
     <fileset.resources>
       <file>${PROJECT_ROOT}\MATLAB data scripts</file>
