@@ -24,7 +24,7 @@ for FileIndex = 1:1:size(FolderContent,1)
         Wavelength = extractBefore(FolderContent(FileIndex).name,'nm.tdms');
             
         display(['Now running: ',[FolderPath, filesep, FolderContent(FileIndex).name]])
-        TDMScontent = TDMS_readTDMSFile([FolderPath, filesep, FolderContent(FileIndex).name]);
+        TDMScontent = TDMS_readTDMSFile([FolderPath, '/', FolderContent(FileIndex).name]);
 
         % Find all useful data in CH0 - only look at A-B trace or just A trace
         CH0GroupIndex = strcmp(TDMScontent.groupNames,'CH0'); % CH0 index is always 2??
